@@ -1,0 +1,106 @@
+﻿@page
+@using Net6.Utility
+@model Net6Core.Areas.Identity.Register2Model
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-6 ">
+            @if (User.IsInRole(SD.Role_Admin))
+            {
+                <h1 class="mb-3">Register - ADMIN PORTAL</h1>
+            }
+            <h1 class="mb-3">Register</h1>
+            <form method="post" class="row">
+                <div asp-validation-summary= "All" class="text-danger"></div>
+                <div class="mb-3 col-12">
+                    <label class="form-label" asp-for="Model.Email">Email Adress: </label>
+                    <input type="text" asp-for="Model.Email" class="form-control"/>
+                    <span asp-validation-for="Model.Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label" asp-for="Model.Name">Name: </label>
+                    <input type="text" asp-for="Model.Name" class="form-control" />
+                    <span asp-validation-for="Model.Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label" asp-for="Model.PhoneNumber">PhoneNumber: </label>
+                    <input type="text" asp-for="Model.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="Model.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label" asp-for="Model.StreetAddress">StreetAddress: </label>
+                    <input type="text" asp-for="Model.StreetAddress" class="form-control" />
+                    <span asp-validation-for="Model.StreetAddress" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label" asp-for="Model.City">City: </label>
+                    <input type="text" asp-for="Model.City" class="form-control" />
+                    <span asp-validation-for="Model.City" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label" asp-for="Model.State">State: </label>
+                    <input type="text" asp-for="Model.State" class="form-control" />
+                    <span asp-validation-for="Model.State" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label" asp-for="Model.PostalCode">PostalCode: </label>
+                    <input type="text" asp-for="Model.PostalCode" class="form-control" />
+                    <span asp-validation-for="Model.PostalCode" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label" asp-for="Model.Password">Password: </label>
+                    <input type="password" asp-for="Model.Password" class="form-control" />
+                    <span asp-validation-for="Model.Password" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label" asp-for="Model.ConfirmPassword">ConfirmPassword : </label>
+                    <input type="password" asp-for="Model.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Model.ConfirmPassword" class="text-danger"></span>
+                </div>
+                @if (User.IsInRole(SD.Role_Admin))
+                {
+                    <div class="mb-3 col-6">
+                        <select asp-for="Model.Role" asp-items="@Model.Model.RoleList" class="form-select">
+                            <option disabled selected>-Select Role-</option>
+                        </select>
+
+                    </div>
+                    <div class="mb-3 col-6">
+                        <select asp-for="Model.CompanyId" style="display:none" asp-items="@Model.Model.CompanyList" class="form-select">
+                            <option disabled selected>-Select Company-</option>
+                        </select>
+
+                    </div>
+                }
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary col-12">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+    <script>
+        $(document).ready(function(){
+            $('#Model_Role').change(function(){
+                var selection = $('#Model_Role Option:Selected').text();
+                if(selection != 'Company'){
+                    $('#Model_CompanyId').hide();
+                }else{
+                    $('#Model_CompanyId').show();
+                }
+            })
+        })
+        var s = document.getElementById("Model_Role").value;
+        console.log(s);
+        if (s == "Company"){
+            $('#Model_CompanyId').show();
+        }else{
+            $('#Model_CompanyId').hide();
+        }
+    </script>
+}
