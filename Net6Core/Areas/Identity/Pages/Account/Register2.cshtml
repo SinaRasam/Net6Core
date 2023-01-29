@@ -88,6 +88,8 @@
         $(document).ready(function(){
             $('#Model_Role').change(function(){
                 var selection = $('#Model_Role Option:Selected').text();
+                //var selection = $(this).val();
+                //var selection = document.getElementById("Model_Role").value;
                 if(selection != 'Company'){
                     $('#Model_CompanyId').hide();
                 }else{
@@ -95,12 +97,5 @@
                 }
             })
         })
-        var s = document.getElementById("Model_Role").value;
-        console.log(s);
-        if (s == "Company"){
-            $('#Model_CompanyId').show();
-        }else{
-            $('#Model_CompanyId').hide();
-        }
     </script>
 }
